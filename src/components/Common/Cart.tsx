@@ -1,15 +1,29 @@
-import { decrement, increment, removeFromCart } from "@/redux/slice/AddtoCartSlice";
+import {
+  decrement,
+  increment,
+  removeFromCart,
+} from "@/redux/slice/AddtoCartSlice";
 import { RootState } from "@/redux/store";
 import { Minus, Plus, Trash2, X } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/image"; // ✅ next/image
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@/components/ui/button"; // Ensure this path is correct for your Shadcn setup
+import { Button } from "../ui/button";
 
-const Cart = ({ setIsCartOpen }: { setIsCartOpen: any }) => {
+// ✅ Use the same CartItem type directly from your AddtoCartSlice (to avoid mismatch)
+import type { CartItem } from "@/redux/slice/AddtoCartSlice"; // Ensure CartItem type consistency
+
+// ✅ Props type for the component
+interface CartProps {
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Cart: React.FC<CartProps> = ({ setIsCartOpen }) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state: RootState) => state.cart.cart) || [];
+
+  // ✅ Correctly type cartItems
+  const cartItems = useSelector((state: RootState) => state.cart.cart) as CartItem[];
 
   const cartRef = useRef<HTMLDivElement>(null);
 
@@ -21,47 +35,51 @@ const Cart = ({ setIsCartOpen }: { setIsCartOpen: any }) => {
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
+
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [setIsCartOpen]);
 
+  // ✅ Helper to dispatch actions correctly (because increment/decrement/remove expect {id: string})
+  const handleIncrement = (id: string) => dispatch(increment({ id }));
+  const handleDecrement = (id: string) => dispatch(decrement({ id }));
+  const handleRemove = (id: string) => dispatch(removeFromCart({ id }));
+
   return (
-    <div
-      ref={cartRef}
-      className="max-w-lg mx-auto bg-white p-4 relative rounded-lg shadow-lg"
-    >
+    <div ref={cartRef} className="max-w-lg mx-auto bg-white p-4 relative rounded-lg">
       {/* Close Button */}
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-2 left-2"
+        className="absolute top-2 left-2 text-primaryColor p-1 rounded-full"
+        aria-label="Close cart"
         onClick={() => setIsCartOpen(false)}
       >
-        <X className="w-5 h-5 text-primaryColor" />
+        <X />
       </Button>
 
-      {/* Announcement Banner */}
+      {/* Free Shipping Banner */}
       <div className="bg-green-100 text-green-700 text-sm p-2 rounded mb-4 text-center mt-10">
-        ✅ Free shipping and free returns
-        <span className="font-medium"> Limited-time</span>
+        ✅ Free shipping and free returns <span className="font-medium">Limited-time</span>
       </div>
 
-      {/* Cart Items */}
+      {/* Cart Items List */}
       <div className="max-h-[400px] overflow-y-auto border-t border-b p-2">
-        {cartItems.map((item: any, index: number) => (
+        {cartItems.map((item, index) => (
           <div
             key={`${item.id}-${index}`}
             className="flex items-center gap-4 border-b py-4 last:border-none"
           >
-            {/* Product Image */}
-            <Image
-              width={100}
-              height={100}
-              src={item?.image || ""}
-              alt={item.name}
-              className="w-20 h-20 object-cover rounded-md"
-            />
+            {/* ✅ Product Image with next/image */}
+            <div className="relative w-20 h-20 rounded-md overflow-hidden">
+              <Image
+                src={item.image || ""}
+                alt={item.name || "Product Image"}
+                fill
+                className="object-cover"
+              />
+            </div>
 
             {/* Product Details */}
             <div className="flex-1">
@@ -74,12 +92,13 @@ const Cart = ({ setIsCartOpen }: { setIsCartOpen: any }) => {
               </p>
             </div>
 
-            {/* Quantity & Actions */}
+            {/* Quantity Controls */}
             <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
-                onClick={() => dispatch(decrement(item))}
+                onClick={() => handleDecrement(item.id)}
+                className="p-1 bg-gray-200 rounded-md"
               >
                 <Minus size={16} />
               </Button>
@@ -87,9 +106,10 @@ const Cart = ({ setIsCartOpen }: { setIsCartOpen: any }) => {
               <span className="text-sm font-medium">{item.count}</span>
 
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
-                onClick={() => dispatch(increment(item))}
+                onClick={() => handleIncrement(item.id)}
+                className="p-1 bg-gray-200 rounded-md"
               >
                 <Plus size={16} />
               </Button>
@@ -97,7 +117,8 @@ const Cart = ({ setIsCartOpen }: { setIsCartOpen: any }) => {
               <Button
                 variant="destructive"
                 size="icon"
-                onClick={() => dispatch(removeFromCart(item))}
+                onClick={() => handleRemove(item.id)}
+                className="p-1 bg-red-500 text-white rounded-md"
               >
                 <Trash2 size={16} />
               </Button>
@@ -113,16 +134,15 @@ const Cart = ({ setIsCartOpen }: { setIsCartOpen: any }) => {
           <span className="text-red-500">
             Rs.{" "}
             {cartItems
-              .reduce(
-                (total: any, item: any) => total + (item.price || 0) * item.count,
-                0
-              )
+              .reduce((total, item) => total + (item.price || 0) * item.count, 0)
               .toLocaleString()}
           </span>
         </p>
 
-        <Link href="#" passHref>
-          <Button className="w-full mt-2">Checkout</Button>
+        <Link href="#">
+          <Button className="text-white w-full py-2 mt-2 rounded text-sm">
+            Checkout
+          </Button>
         </Link>
       </div>
     </div>

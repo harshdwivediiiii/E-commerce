@@ -124,3 +124,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* NewArrival styles */
+.new-arrivals-slider-track {
+  display: flex;
+  gap: 0.5rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.new-arrivals-slide-full {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.new-arrivals-slide-half {
+  flex-shrink: 0;
+  width: 50%;
+}
+
+.new-arrivals-slide-quarter {
+  flex-shrink: 0;
+  width: 25%;
+}

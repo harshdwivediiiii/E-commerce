@@ -13,8 +13,17 @@ const CartButton = ({
   const dispatch = useDispatch();
 
   const handleCart = () => {
-    dispatch(addToCart({ ...product, count: 1 }));
+    dispatch(
+      addToCart({
+        id: String(product.id),
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        color: product.color,
+      })
+    );
   };
+
   return <div onClick={handleCart}>{children}</div>;
 };
 

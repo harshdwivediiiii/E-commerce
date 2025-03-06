@@ -3,6 +3,7 @@
 import { ProductCardProps } from "@/lib/data";
 import Image from "next/image";
 import CartButton from "../Common/CartButton";
+import { Button } from "../ui/button";
 
 
 const ProductDetail = ({ product }: { product: ProductCardProps }) => {
@@ -28,17 +29,17 @@ const ProductDetail = ({ product }: { product: ProductCardProps }) => {
           <h1 className="text-3xl">{product.name}</h1>
           <div className="flex items-center gap-3">
             <span className="text-2xl text-red-500 font-semibold">
-              ${product.price.toFixed(2)}
+            ₹{product.price.toFixed(2)}
             </span>
             <span className="text-xl text-gray-400 line-through">
-              ${product.originalPrice.toFixed(2)}
+            ₹{product.originalPrice.toFixed(2)}
             </span>
           </div>
           <p className="text-md leading-relaxed text-gray-400">{product.desc}</p>
           <CartButton product={product}>
-            <button className="bg-red-500 text-white px-6 py-3 rounded-lg font-serif hover:bg-red-600 transition duration-300 transform hover:scale-105">
+            <Button className="bg-red-500 text-white px-6 py-3 rounded-lg font-serif hover:bg-red-600 transition duration-300 transform hover:scale-105">
               Add To Cart
-            </button>
+            </Button>
           </CartButton>
         </div>
       </div>

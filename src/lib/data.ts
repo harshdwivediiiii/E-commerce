@@ -9,6 +9,7 @@ export const products = [
     image: "/imgs/mobile.jpeg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "mobiles",
+    color: "black",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const products = [
     image: "/imgs/mobile.jpeg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "mobiles",
+    color: "blue",
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const products = [
     image: "/imgs/im-1.jpg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "headphones",
+    color: "red",
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const products = [
     image: "/imgs/im-2.jpg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "cameras",
+    color: "silver",
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ export const products = [
     image: "/imgs/im-3.jpg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "headphones",
+    color: "white",
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ export const products = [
     image: "/imgs/im-4.jpg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "mobiles",
+    color: "green",
   },
   {
     id: 7,
@@ -75,6 +81,7 @@ export const products = [
     image: "/imgs/im-5.jpg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "headphones",
+    color: "black",
   },
   {
     id: 8,
@@ -86,6 +93,7 @@ export const products = [
     image: "/imgs/im-6.jpg",
     hoverImage: "/imgs/mobile-2.jpeg",
     type: "headphones",
+    color: "grey",
   },
   {
     id: 9,
@@ -97,6 +105,7 @@ export const products = [
     image: "/imgs/dool.webp",
     hoverImage: "/imgs/toy.webp",
     type: "gaming",
+    color: "black",
   },
   {
     id: 10,
@@ -108,6 +117,79 @@ export const products = [
     image: "/imgs/dool.webp",
     hoverImage: "/imgs/toy.webp",
     type: "gaming",
+    color: "white",
+  },
+  {
+    id: 11,
+    desc: "Sleek and modern sunglasses for everyday style and UV protection.",
+    name: "UrbanShield Sunglasses",
+    price: 1500,
+    originalPrice: 3000,
+    discount: 50,
+    image: "/imgs/glass.jpeg",
+    hoverImage: "/imgs/Homens Óculos de sol sem aro Lente quadrada.jpeg",
+    type: "accessories",
+    color: "black",
+  },
+  {
+    id: 12,
+    desc: "Trendy wristwatch with a minimalist design, perfect for casual and formal wear.",
+    name: "ChronoMax Watch",
+    price: 12000,
+    originalPrice: 20000,
+    discount: 40,
+    image: "/imgs/watch.jpeg",
+    hoverImage: "/imgs/eatch-2.jpeg",
+    type: "accessories",
+    color: "silver",
+  },
+  {
+    id: 13,
+    desc: "High-quality in-ear headphones for immersive sound on the go.",
+    name: "TuneBeats Pro",
+    price: 7000,
+    originalPrice: 14000,
+    discount: 50,
+    image: "/imgs/ear.jpeg",
+    hoverImage: "/imgs/headphone.webp",
+    type: "headphones",
+    color: "black",
+  },
+  {
+    id: 14,
+    desc: "Wireless over-ear headphones with advanced noise cancellation.",
+    name: "NoiseFree Max",
+    price: 25000,
+    originalPrice: 35000,
+    discount: 28,
+    image: "/imgs/headphone.png",
+    hoverImage: "/imgs/headphone.webp",
+    type: "headphones",
+    color: "black",
+  },
+  {
+    id: 15,
+    desc: "Stylish new-age mobile device for ultimate performance and photography.",
+    name: "XPhone Ultra",
+    price: 200000,
+    originalPrice: 250000,
+    discount: 20,
+    image: "/imgs/newimg.webp",
+    hoverImage: "/imgs/mobile-2.jpeg",
+    type: "mobiles",
+    color: "gold",
+  },
+  {
+    id: 16,
+    desc: "Fun and creative doll toy for kids, sparking imagination.",
+    name: "DreamDoll Princess",
+    price: 3000,
+    originalPrice: 6000,
+    discount: 50,
+    image: "/imgs/dool.webp",
+    hoverImage: "/imgs/toy.webp",
+    type: "toys",
+    color: "pink",
   },
 ];
 
@@ -118,7 +200,7 @@ export const categories = [
   { name: "gaming", count: 2 },
   { name: "headphones", count: 3 },
 ];
-export const prices = ["50", "100", "150", "200"];
+export const prices = ["500", "1000", "1500", "2000", "2500", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "1000000", "2000000", "3000000", "4000000", "5000000", "6000000", "7000000", "8000000", "9000000", "10000000"];
 
 export interface filtersProps {
   searchQuery: string;
@@ -149,4 +231,6 @@ export interface ProductCardProps {
   discount: number;
   image: string;
   hoverImage: string;
+  color: string;
+  type: string;
 }

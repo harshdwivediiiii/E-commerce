@@ -59,7 +59,7 @@ const Sidebar = ({ filters, setFilters }: Props) => {
                 className="text-gray-400 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 Less than and equal to{" "}
-                <span className="text-xl font-bol">${price}</span>
+                ₹<span className="text-xl font-bol">{price}</span>
               </label>
             </li>
           ))}
